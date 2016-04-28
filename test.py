@@ -26,8 +26,17 @@ s_df = sql_sc.createDataFrame(pandas_df)
 
 
 groupByDate = s_df.groupBy("Date").count();
-count = groupByDate.select("count");
-date = groupByDate.select("Date");
+#count = groupByDate.select("count").rdd.map(lambda l : l ).collect();
+#date = groupByDate.select("Date").rdd.map(lambda l : l ).collect();
 
-plt.plot(date,count);
+count = groupByDate.select("count").toPandas();
+count = count.values.tolist();
+date = groupByDate.select("Date").toPandas();
+#date = date.values.tolist();
+date = date["Date"];
+date = date.str[0:5];
+print date;
+
+plt.plot(count);
+plt.xticks(range(len(date)), date);
 plt.show();
