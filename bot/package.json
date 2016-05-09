@@ -1,0 +1,12 @@
+{
+    "name": "uberdata",
+    "main": "bot.js",
+    "dependencies": {
+        "express": "~4.0.0",
+        "body-parser": "~1.0.1",
+        "request":"~2.72.0"
+    },
+    "scripts": {
+      "start": "node bot.js"
+    }
+}
