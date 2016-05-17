@@ -60,3 +60,14 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+#Extras folder
+extras/
+
+#Data folder
+data/
+
+#amCharts folder
+amcharts_3.20.4.free/
+
+

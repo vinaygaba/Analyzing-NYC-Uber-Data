@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Analysis of New York Cab Rides</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+  <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="amcharts/amcharts.js" type="text/javascript"></script>
+
+   <script src="amcharts/serial.js" type="text/javascript"></script>
+
+     <script>
+            var chart;
+
+            var chartData = [
+                {
+                    "Day": "Monday",
+                    "Rides": 10876300,
+                    "short": "MON"
+                },
+                {
+                    "Day": "Tuesday",
+                    "Rides": 10573014,
+                    "short": "TUE"
+                },
+                {
+                    "Day": "Wednesday",
+                    "Rides": 11997332,
+                    "short": "WED"
+                },
+                {
+                    "Day": "Thursday",
+                    "Rides": 12003711,
+                    "short": "THURS"
+                },
+                {
+                    "Day": "Friday",
+                    "Rides": 12288482,
+                    "short": "FRI"
+                },
+                {
+                    "Day": "Saturday",
+                    "Rides": 12384258,
+                    "short": "SAT"
+                },
+                {
+                    "Day": "Sunday",
+                    "Rides": 12251990,
+                    "short": "SUN"
+                }
+            ];
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                var chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData;
+                chart.categoryField = "Day";
+                chart.rotate = true;
+                chart.color = "#FFFFFF";
+                chart.handDrawn = true;
+                chart.handDrawScatter = 4;
+
+                // this line makes the chart to show image in the background
+                chart.backgroundImage = "images/taxi_final.jpg";
+
+                // sometimes we need to set margins manually
+                // autoMargins should be set to false in order chart to use custom margin values
+                chart.autoMargins = false;
+                chart.marginTop = 100;
+                chart.marginLeft = 50;
+                chart.marginRight = 30;
+                chart.startDuration = 2;
+
+                // AXES
+                // category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.axisAlpha = 0;
+                categoryAxis.labelsEnabled = false;
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.gridAlpha = 0;
+                valueAxis.axisAlpha = 0;
+                valueAxis.labelsEnabled = false;
+                valueAxis.minimum = 0;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.balloonText = "[[category]]: [[value]]";
+                graph.valueField = "Rides";
+                graph.type = "column";
+                graph.lineAlpha = 0;
+                graph.fillAlphas = 0.5;
+
+                // you can pass any number of colors in array to create more fancy gradients
+                graph.fillColors = ["#FF6600","#FACC2E" ];
+                graph.gradientOrientation = "horizontal";
+                graph.labelPosition = "inside";
+                graph.labelText = "[[category]]: [[value]] ";
+                graph.balloonText = "[[category]]: [[value]] ";
+                chart.addGraph(graph);
+
+                // LABEL
+                chart.addLabel(50, 40, "", "left", 25, "#B43104", 0, 1, true); //"#FFBF00"
+
+                chart.creditsPosition = "bottom-right";
+
+                // WRITE
+                chart.write("chartdiv");
+            });
+        </script>
+
+
+<!-- fngkkjfn;lhbfgbl;yfg';b,gbhgf-dkdmfldmlfd gklkgmvtlg,trl;gmklrtgnmtklrgm'tbmtbhl;,lfdm -->
+
+
+
+        <script src="amcharts/pie.js" type="text/javascript"></script>
+
+       <script>
+            var chart;
+
+            var chartData1 = [
+                {
+                    "Month": "April",
+                    "rides": 14618759
+                },
+                {
+                    "Month": "May",
+                    "rides": 14774041
+                },
+                {
+                    "Month": "June",
+                    "rides": 13813029
+                },
+                {
+                    "Month": "July",
+                    "rides": 13106365
+                },
+                {
+                    "Month": "August",
+                    "rides": 12688877
+                },
+                {
+                    "Month": "September",
+                    "rides": 13374016
+                }
+            ];
+
+
+            AmCharts.ready(function () {
+                // PIE CHART
+                chart = new AmCharts.AmPieChart();
+
+                // title of the chart
+                chart.addTitle("", 16);
+
+                chart.dataProvider = chartData1;
+                chart.titleField = "Month";
+                chart.valueField = "rides";
+                chart.sequencedAnimation = true;
+                chart.startEffect = "elastic";
+                chart.innerRadius = "30%";
+                chart.startDuration = 2;
+                chart.labelRadius = 15;
+                chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+                // the following two lines makes the chart 3D
+                chart.depth3D = 10;
+                chart.angle = 15;
+
+                chart.creditsPosition = "bottom-right";
+
+                // WRITE
+                chart.write("chartdiv2");
+            });
+        </script>
+
+
+
+
+ <script>
+            var chart;
+
+            var chartData2 = [
+                {
+                    "month": "April",
+                    "Uber": 15000035,
+                    "Yellow Cab":14618759 ,
+
+                },
+                {
+                    "month":"May" ,
+                    "Uber": 16345809,
+                    "Yellow Cab": 14774041,
+
+                },
+                {
+                    "month": "June",
+                    "Uber": 12567832,
+                    "Yellow Cab": 13813029,
+
+                },
+                {
+                    "month": "July",
+                    "Uber": 13789362,
+                    "Yellow Cab": 13106365,
+
+                },
+                {
+                    "month": "August",
+                    "Uber": 16341580,
+                    "Yellow Cab": 12688877,
+
+                },
+                {
+                    "month": "September",
+                    "Uber": 14367821,
+                    "Yellow Cab": 13374016,
+
+                },
+
+            ];
+
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData2;
+                chart.categoryField = "month";
+                chart.startDuration = 0.5;
+                chart.balloon.color = "#000000";
+
+                // AXES
+                // category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.fillAlpha = 1;
+                categoryAxis.fillColor = "#FAFAFA";
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.axisAlpha = 0;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.position = "top";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.title = "Rides taken";
+                valueAxis.dashLength = 1000000;
+                valueAxis.axisAlpha = 0;
+                valueAxis.minimum = 12567832;
+                valueAxis.maximum = 16345809;
+                valueAxis.integersOnly = true;
+                valueAxis.gridCount = 10;
+                valueAxis.reversed = false; // this line makes the value axis reversed
+                chart.addValueAxis(valueAxis);
+
+                // GRAPHS
+                // Italy graph
+                var graph1 = new AmCharts.AmGraph();
+                graph1.title = "Uber";
+                graph1.valueField = "Uber";
+                graph1.hidden = false; // this line makes the graph initially hidden
+                graph1.balloonText = "Rides by Uber in [[category]]: [[value]]";
+                //graph1.lineAlpha = 1;
+                graph1.bullet = "round";
+                chart.addGraph(graph1);
+
+                // Germany graph
+                var graph2 = new AmCharts.AmGraph();
+                graph2.title = "Yellow Cab";
+                graph2.valueField = "Yellow Cab";
+                graph2.balloonText = "Rides by Yellow Cab in  [[category]]: [[value]]";
+                graph2.bullet = "round";
+                chart.addGraph(graph2);
+
+                // // United Kingdom graph
+                // var graph = new AmCharts.AmGraph();
+                // graph.title = "United Kingdom";
+                // graph.valueField = "uk";
+                // graph.balloonText = "place taken by UK in [[category]]: [[value]]";
+                // graph.bullet = "round";
+                // chart.addGraph(graph);
+
+                // CURSOR
+                var chartCursor = new AmCharts.ChartCursor();
+                chartCursor.cursorPosition = "mouse";
+                chartCursor.zoomable = false;
+                chartCursor.cursorAlpha = 0;
+                chart.addChartCursor(chartCursor);
+
+                // LEGEND
+                var legend = new AmCharts.AmLegend();
+                legend.useGraphSettings = true;
+                chart.addLegend(legend);
+
+                chart.creditsPosition = "bottom-right";
+
+
+                // WRITE
+                chart.write("chartdiv3");
+            });
+        </script>
+
+
+  <script>
+            AmCharts.ready(function() {
+                makeLineChart();
+            });
+
+
+             //// LINE CHART
+
+            var lineChartData = [{
+                    "continent": "April",
+                    //"mountain": "Kosciusko",
+                    "average ride distance": 2.86289918232997
+                }, {
+                    "continent": "May",
+                    //"mountain": "Kilimanjaro",
+                    "average ride distance": 2.914155366463
+                }, {
+                    "continent": "June",
+                    //"mountain": "Aconcagua",
+                    "average ride distance": 2.93990743150582
+                },
+
+                {
+                    "continent": "July",
+                    //"mountain": "Elbrus",
+                    "average ride distance": 2.90479577092905
+                }, {
+                    "continent": "August",
+                    //"mountain": "Everest",
+                    "average ride distance": 2.4350358657689
+                },
+
+                {
+                    "continent": "September",
+                    //"mountain": "Aconcagua",
+                    "average ride distance": 2.98321512383349
+                }
+            ];
+
+
+            function makeLineChart() {
+                // SERIAL CHART
+                var lineChart = new AmCharts.AmSerialChart();
+                lineChart.dataProvider = lineChartData;
+                lineChart.fontSize = 18;
+                lineChart.fontFamily = 'Covered By Your Grace';
+                lineChart.color = "#FFFFFF";
+                lineChart.categoryField = "continent";
+                lineChart.marginLeft = 117;
+                lineChart.startDuration = 0;
+                lineChart.handDrawn = true;
+
+                lineChart.backgroundColor = "#2d2b2c";
+
+                var balloon = lineChart.balloon;
+                balloon.adjustBorderColor = false;
+                balloon.borderColor = "#000000";
+                balloon.fillColor = "#FFFFFF";
+                balloon.verticalPadding = 0;
+
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.minimum = 0;
+                valueAxis.ignoreAxisWidth = true;
+                valueAxis.axisColor = "#FFFFFF";
+                valueAxis.gridColor = "#FFFFFF";
+                lineChart.addValueAxis(valueAxis);
+
+                // AXES
+                // category
+                var categoryAxis = lineChart.categoryAxis;
+                categoryAxis.labelRotation = 90;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.axisColor = "#FFFFFF";
+                categoryAxis.labelRotation = 45;
+                categoryAxis.gridAlpha = 0;
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.valueField = "average ride distance";
+                //graph.balloonText = "<span style='font-size:14px'>[[category]]</span><br>[[mountain]]: [[value]] m.";
+                graph.lineAlpha = 1;
+                graph.lineColor = "#FFFFFF";
+                graph.fillAlphas = 0.8;
+                graph.lineThickness = 4;
+                graph.bullet = "round";
+                graph.pattern = {
+                    url: "patterns/chalk/pattern2.jpg",
+                    width: 600,
+                    height: 600
+                };
+                lineChart.addGraph(graph);
+
+                // CURSOR
+                var chartCursor = new AmCharts.ChartCursor();
+                chartCursor.cursorAlpha = 0;
+                chartCursor.zoomable = false;
+                chartCursor.categoryBalloonEnabled = false;
+                lineChart.addChartCursor(chartCursor);
+
+                lineChart.write("chartdiv4");
+
+            }
+
+        </script>
+
+         <script>
+            var chart;
+
+            var chartData5 = [
+                {
+                    "country": "12-1",
+                    "visits": 16.32,
+                    "color": "#FF0F00"
+                },
+
+                {   "country": "1-2",
+                    "visits": 17.16,
+                    "color": "#FF3B00"
+                },
+                {
+                    "country": "2-3",
+                    "visits": 17.6,
+                    "color": "#FF6600"
+                },
+                {
+                    "country": "3-4",
+                    "visits": 18.23,
+                    "color": "#FF8201"
+                },
+                {
+                    "country": "4-5",
+                    "visits": 20.29,
+                    "color": "#FF9E01"
+                },
+                {
+                    "country": "5-6",
+                    "visits": 22.82,
+                    "color": "#FEB802"
+                },
+                {
+                    "country": "6-7",
+                    "visits": 19,
+                    "color": "#FCD202"
+                },
+
+                {
+                    "country": "7-8",
+                    "visits": 14.88,
+                    "color": "#FAE902"
+                },
+
+                {
+                    "country": "8-9",
+                    "visits": 12.25,
+                    "color": "#F8FF01"
+                },
+                {
+                    "country": "9-10",
+                    "visits": 11.87,
+                    "color": "#D4EF05"
+                },
+                {
+                    "country": "10-11",
+                    "visits": 11.98,
+                    "color": "#B0DE09"
+                },
+                {
+                     "country": "11-12",
+                    "visits": 11.9,
+                    "color": "#5AD80F"
+                },
+                {
+                    "country": "12-13",
+                    "visits": 11.72,
+                    "color": "#04D215"
+                },
+                {
+                    "country": "13-14",
+                    "visits": 12,
+                    "color": "#09B072"
+                },
+                {
+                    "country": "14-15",
+                    "visits": 11.8,
+                    "color": "#0D8ECF"
+                },
+                {
+                    "country": "15-16",
+                    "visits": 11.73,
+                    "color": "#0D70D0"
+                },
+                {
+                    "country": "16-17",
+                    "visits": 12.4,
+                    "color": "#0D52D1"
+                },
+                {
+                    "country": "17-18",
+                    "visits": 12.17,
+                    "color": "#1C2FD1"
+                },
+                {
+                    "country": "18-19",
+                    "visits": 12.07,
+                    "color": "#2A0CD0"
+                },
+                {
+                    "country": "19-20",
+                    "visits": 12.76,
+                    "color": "#5A0CD0"
+                },
+                {
+                    "country": "20-21",
+                    "visits": 13.95,
+                    "color": "#8A0CCF"
+                },
+                {
+                    "country": "21-22",
+                    "visits": 14.67,
+                    "color": "#AC0DA2"
+                },
+                {
+                    "country": "22-23",
+                    "visits": 15.11,
+                    "color": "#CD0D74"
+                },
+                {
+                    "country": "23-124",
+                    "visits": 15.66,
+                    "color": "#DF0174"
+                },
+
+            ];
+
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData5;
+                chart.categoryField = "country";
+                chart.startDuration = 1;
+                chart.depth3D = 50;
+                chart.angle = 30;
+                chart.marginRight = -45;
+
+                // AXES
+                // category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.axisAlpha = 0;
+                categoryAxis.gridPosition = "start";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisAlpha = 0;
+                valueAxis.gridAlpha = 0;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.valueField = "visits";
+                graph.colorField = "color";
+                graph.balloonText = "<b>[[category]]: [[value]]</b>";
+                graph.type = "column";
+                graph.lineAlpha = 0.5;
+                graph.lineColor = "#FFFFFF";
+                graph.topRadius = 1;
+                graph.fillAlphas = 0.9;
+                chart.addGraph(graph);
+
+                // CURSOR
+                var chartCursor = new AmCharts.ChartCursor();
+                chartCursor.cursorAlpha = 0;
+                chartCursor.zoomable = false;
+                chartCursor.categoryBalloonEnabled = false;
+                chartCursor.valueLineEnabled = true;
+                chartCursor.valueLineBalloonEnabled = true;
+                chartCursor.valueLineAlpha = 1;
+                chart.addChartCursor(chartCursor);
+
+                chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("chartdiv5");
+            });
+        </script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <!--<nav>
+          <ul class="nav nav-pills pull-right">
+            <li>Tanaya Thaly<UNI></li>
+            <li >Vinay Gaba<vhg2105></li>
+          </ul>
+
+        </nav>-->
+        <h3 class="text-muted">Tanaya Thaly  |  Vinay Gaba</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Analysis of NYC Cab Rides</h1>
+        <p class="lead">An exploration of the city's neighborhoods, nightlife, airport traffic, and more, through the lens of publicly available taxi and Uber data</p>
+
+      </div>
+
+      <div class="row marketing">
+        <!--<div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>-->
+
+        <div class="page-header">
+          <h1><small>The story of how New York travels!</small></h1>
+        </div>
+
+        <!--Enter main content here-->
+        <div class="col-xs">
+          <p style="text-align: justify;">The New York City Taxi & Limousine Commission has released a staggeringly detailed historical dataset covering over 1.1 billion individual taxi trips in the city from January 2009 through June 2015. Taken as a whole, the detailed trip-level data is more than just a vast list of taxi pickup and drop off coordinates: it’s a story of New York. This is our attempt to extract stories and meaning from the data</p>
+
+
+
+          <h4 style="text-align: center;">NYC Taxi Data</h4>
+          <p style="text-align: justify;">The official TLC trip record dataset contains data for over 1.1 billion taxi trips from January 2009 through June 2015, covering both yellow and green taxis. Each individual trip record contains precise location coordinates for where the trip started and ended, timestamps for when the trip started and ended, plus a few other variables including fare amount, payment method, and distance traveled. We given a subset of that data, which still was a huge understaking.</p>
+
+          <br/>
+          <h4 style="text-align: center;"> Visualizing Cab Rides on an hourly basis </h4>
+          <div style="width: 600px; height: 600px;"> <img src="yellow_taxi.gif"> </img></div>
+
+          <h4></h4>
+          <div style="width: 600px; height: 400px;"> <img src="yellow_taxi_with_airport.gif"> </img></div><br/>
+
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <h4 style="text-align: center;"> Rides per day of the week</h4>
+          <div id="chartdiv" style="width: 600px; height: 480px;"></div>
+          <br/>
+
+          <h4 style="text-align: center;"> Monthly rides percentage</h4>
+          <div id="chartdiv2" style="width:600px; height:400px;"></div>
+          <br/>
+
+          <h4 style="text-align: center;"> Number of trips per month </h4>
+          <div id="chartdiv3" style="width: 600px; height: 400px;"></div>
+          <br/>
+
+          <h4 style="text-align: center;">Average ride distance per month</h4><br/>
+          <div id="chartdiv4" style="width: 600px; height: 400px;background-image: url('images/board.jpg')"></div>
+          <br/>
+
+          <h4 style="text-align: center;"> Average Speed per hour (in Miles) </h4><br/>
+          <div id="chartdiv5" style="width: 600px; height: 400px;"></div>
+          <br/>
+
+          <!-- <img src="http://toddwschneider.com/data/taxi/taxi_pickups_brooklyn.png" class="img-responsive" alt="Responsive image"> -->
+          <h4 style="text-align: center;"> HeatMap of popular destinations from JFK </h4><br/>
+          <div style="width: 600px; height: 500px;">
+            <iframe width="600" height="500" scrolling="no" frameborder="no" src="https://www.google.com/fusiontables/embedviz?q=select+col0%2C+col1%2C+col2+from+1Pb25YeKkZLGgGA5HB4ftrR1Om47DL4v6AI6WMIo4+limit+1000&amp;viz=HEATMAP&amp;h=true&amp;lat=40.74621361100811&amp;lng=-73.9661144104004&amp;t=1&amp;z=12&amp;l=col0&amp;y=2&amp;tmplt=3&amp;hmd=true&amp;hmg=%2366ff0000%2C%2393ff00ff%2C%23c1ff00ff%2C%23eeff00ff%2C%23f4e300ff%2C%23f4e300ff%2C%23f9c600ff%2C%23ffaa00ff%2C%23ff7100ff%2C%23ff3900ff%2C%23ff0000ff&amp;hmo=0.63&amp;hmr=15&amp;hmw=2&amp;hml=TWO_COL_LAT_LNG"></iframe>
+          </div>
+          <br/>
+
+
+        </div>
+
+
+      </div><!--row marketing div class ends-->
+
+      <a href="https://github.com/vinaygaba/Analyzing-NYC-Uber-Data"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+
+      <!--<footer class="footer">
+        <p>&copy; Tanaya Thaly  | Vinay Gaba</p>
+      </footer>-->
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+  </body>
+</html>

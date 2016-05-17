@@ -13,8 +13,8 @@ from sklearn.ensemble import ExtraTreesClassifier
 import subprocess
 
 
-filepath = "data/yellow/yellow_tripdata_2015-04.csv";
-testfilepath = "testdata.csv";
+filepath = "path_to_training_data.csv";
+testfilepath = "path_to_test_data.csv";
 data = pd.read_csv(filepath, header = 0)
 testdata = pd.read_csv(testfilepath, header = 0)
 print len(data)

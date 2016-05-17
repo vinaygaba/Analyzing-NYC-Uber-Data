@@ -1,0 +1,120 @@
+
+// Get total no of trips between the desired time period grouped by number of
+//passengers in the cab
+SELECT
+ Count(*),passenger_count
+FROM
+  [nyc-tlc:yellow.trips]
+WHERE
+  YEAR(pickup_datetime) = 2014 AND
+  MONTH(pickup_datetime) > 3 AND
+  MONTH(pickup_datetime) < 10
+Group BY( passenger_count )
+
+
+
+// Get total no of trips between the desired time period grouped by which
+//day of the week it is
+SELECT
+ Count(*),DAYOFWEEK(pickup_datetime) AS dayofweek
+FROM
+  [nyc-tlc:yellow.trips]
+WHERE
+  YEAR(pickup_datetime) = 2014 AND
+  MONTH(pickup_datetime) > 3 AND MONTH(pickup_datetime) < 10
+Group BY( dayofweek )
+
+// Get total no of trips between the desired time period grouped by which
+//hour of the day it is
+SELECT
+ Count(*),HOUR(pickup_datetime) AS hour
+FROM
+  [nyc-tlc:yellow.trips]
+WHERE
+  YEAR(pickup_datetime) = 2014 AND
+  MONTH(pickup_datetime) > 3 AND MONTH(pickup_datetime) < 10
+Group BY( hour )
+
+
+//Average fare amount for all trips
+SELECT
+ AVG( fare_amount )
+FROM
+  [nyc-tlc:yellow.trips]
+WHERE
+  YEAR(pickup_datetime) = 2014 AND
+  MONTH(pickup_datetime) > 3 AND MONTH(pickup_datetime) < 10
+
+//Average trip distance for all trips
+  SELECT
+ AVG( trip_distance )
+FROM
+  [nyc-tlc:yellow.trips]
+WHERE
+  YEAR(pickup_datetime) = 2014 AND
+  MONTH(pickup_datetime) > 3 AND MONTH(pickup_datetime) < 10
+
+
+  //Get top 10 medallion earners in a descending order of earning
+  SELECT
+  ROUND(SUM(FLOAT(total_amount)),
+    2) AS amt,
+  DATE(pickup_datetime) AS date,
+  medallion
+FROM
+  [imjasonh-storage:nyctaxi.trip_fare]
+  WHERE YEAR(pickup_datetime) = 2013 AND
+  MONTH(pickup_datetime) > 3 AND MONTH(pickup_datetime) < 10
+  GROUP EACH BY
+  date,
+  medallion
+ORDER BY
+  amt DESC
+LIMIT
+  10;
+
+  //All trips going to JFK grouped by day of the week
+  SELECT
+ Count(*),DAYOFWEEK(pickup_datetime) AS dayofweek
+FROM
+  [nyc-tlc:yellow.trips]
+WHERE
+  YEAR(pickup_datetime) = 2014 AND
+  MONTH(pickup_datetime) > 3
+  AND MONTH(pickup_datetime) < 10
+  AND FLOAT(dropoff_latitude) < 40.651381
+  AND FLOAT(dropoff_latitude) > 40.640668
+  AND FLOAT(dropoff_longitude) < -73.776283
+  AND FLOAT(dropoff_longitude) > -73.794694
+Group BY( dayofweek )
+
+
+
+//Most common hotspot from JFK airport
+SELECT
+  ROUND(FLOAT(dropoff_latitude),3) AS drop_lat, ROUND(FLOAT(dropoff_longitude),3) AS drop_long,
+  COUNT(HOUR(TIMESTAMP(pickup_datetime))) AS pickups
+FROM
+  [nyc-tlc:yellow.trips] AS A
+WHERE
+  FLOAT(pickup_latitude) < 40.651381   AND FLOAT(pickup_latitude) > 40.640668
+  AND FLOAT(pickup_longitude) < -73.776283   AND FLOAT(pickup_longitude) > -73.794694
+  AND
+  ((FLOAT(A.dropoff_latitude) < 40.76104   AND FLOAT(A.dropoff_latitude) > 40.70120
+  AND FLOAT(A.dropoff_longitude) < -73.00082   AND FLOAT(A.dropoff_longitude) > -73.02108)
+OR (FLOAT(A.dropoff_latitude) < 40.79042   AND FLOAT(A.dropoff_latitude) > 40.70901
+  AND FLOAT(A.dropoff_longitude) < -73.97061   AND FLOAT(A.dropoff_longitude) > -74.00082)
+OR (FLOAT(A.dropoff_latitude) < 40.81732   AND FLOAT(A.dropoff_latitude) > 40.74427
+  AND FLOAT(A.dropoff_longitude) < -73.96031   AND FLOAT(A.dropoff_longitude) > -73.98365)
+OR (FLOAT(A.dropoff_latitude) < 40.81846   AND FLOAT(A.dropoff_latitude) > 40.75922
+  AND FLOAT(A.dropoff_longitude) < -73.94434   AND FLOAT(A.dropoff_longitude) > -73.96087)
+OR (FLOAT(A.dropoff_latitude) < 40.81859   AND FLOAT(A.dropoff_latitude) > 40.77297
+  AND FLOAT(A.dropoff_longitude) < -73.92791   AND FLOAT(A.dropoff_longitude) > -73.94593))
+AND
+  FLOAT(trip_distance) > 10
+AND YEAR(pickup_datetime) = 2014
+AND MONTH(pickup_datetime) > 3
+GROUP BY
+  drop_lat, drop_long
+ORDER BY
+  pickups DESC
